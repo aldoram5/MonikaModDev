@@ -85,10 +85,12 @@ init python:
     import os
     import eliza      # mod specific
     import datetime   # mod specific
+    import monika_ai  # mod of mod specific
     import re
     import store.songs as songs
     import store.hkb_button as hkb_button
     therapist = eliza.eliza()
+    chatter_monika = monika_ai.monika_ai()
     process_list = []
     currentuser = None # start if with no currentuser
     if renpy.windows:
@@ -118,6 +120,9 @@ init python:
     if not persistent.mcname or len(persistent.mcname) == 0:
         persistent.mcname = currentuser
         mcname = currentuser
+    # OSX only fix got really tired that monika kept crashing because of the mc
+    if renpy.macintosh:
+        mcname = persistent.mcname
 
     #Define new functions
 
@@ -193,6 +198,7 @@ init python:
         #   config.keymap
         #   config.underlay
         #Add keys for new functions
+        config.keymap["open_chat"] = ["s","S"]
         config.keymap["open_dialogue"] = ["t","T"]
         config.keymap["change_music"] = ["noshift_m","noshift_M"]
         config.keymap["play_game"] = ["p","P"]
@@ -205,12 +211,16 @@ init python:
         ]
         # Define what those actions call
         config.underlay.append(renpy.Keymap(open_dialogue=show_dialogue_box))
+        config.underlay.append(renpy.Keymap(open_chat=show_chat_box))
         config.underlay.append(renpy.Keymap(change_music=select_music))
         config.underlay.append(renpy.Keymap(play_game=pick_game))
         config.underlay.append(renpy.Keymap(mute_music=mute_music))
         config.underlay.append(renpy.Keymap(inc_musicvol=inc_musicvol))
         config.underlay.append(renpy.Keymap(dec_musicvol=dec_musicvol))
 
+    def show_chat_box():
+        if allow_dialogue:
+            renpy.jump('ch30_monikachat')
 
     def show_dialogue_box():
         if allow_dialogue:
@@ -611,10 +621,43 @@ label ch30_monikatopics:
             if possible_topics == []: #Therapist answer if no keywords match
                 # give a therapist answer for all the depressed weebs
                 response = therapist.respond(raw_dialogue)
+                # response = "yes [player] you found the answer "
                 m("[response]")
             else:
                 pushEvent(renpy.random.choice(possible_topics)) #Pick a random topic
 
         allow_dialogue = True
+
+    jump ch30_loop
+
+
+label ch30_monikachat:
+    python:
+        
+        # this workaround is so the hotkey button overlay properly disables
+        # certain buttons
+        
+        allow_dialogue = False
+
+        continue_chat = True
+        need_player_input = True
+        input_tooltip = 'What would you like to tell Monika?'
+        chatter_monika.reset()
+        while continue_chat:
+            if need_player_input: 
+                player_dialogue = renpy.input(input_tooltip,default='',pixel_width=720,length=50)
+            if player_dialogue:
+                raw_dialogue=player_dialogue
+                player_dialogue = player_dialogue.lower()
+                player_dialogue = re.sub(r'[^\w\s]','',player_dialogue) #remove punctuation
+                persistent.current_monikatopic = 0
+                response, emotion, continue_chat, need_player_input = chatter_monika.chat(raw_dialogue)
+                #m("[response]", image='monika 1k')
+                renpy.show('monika '+ emotion)
+                renpy.say(m,"[response]")
+                
+
+        allow_dialogue = True
+        renpy.show('monika 1')
 
     jump ch30_loop

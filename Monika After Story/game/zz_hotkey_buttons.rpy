@@ -94,6 +94,13 @@ screen hkb_overlay():
         yalign 0.95
 
         if allow_dialogue and store.hkb_button.enabled:
+            textbutton _("Chat") action Jump("ch30_monikachat")
+        else:
+            textbutton _("Chat"):
+                action NullAction()
+                style "hkbd_button"
+
+        if allow_dialogue and store.hkb_button.enabled:
             textbutton _("Talk") action Jump("prompt_menu")
         else:
             textbutton _("Talk"):

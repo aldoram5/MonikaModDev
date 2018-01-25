@@ -85,12 +85,17 @@ init python:
     import os
     import eliza      # mod specific
     import datetime   # mod specific
-    import monika_ai  # mod of mod specific
     import re
+    import pickle
+    import inspect
     import store.songs as songs
     import store.hkb_button as hkb_button
+    import monika_chat.monika_ai as mcai
+    from monika_chat.monika_ai import MonikaAi  # mod of mod specific
     therapist = eliza.eliza()
-    chatter_monika = monika_ai.monika_ai()
+    #chatter_monika = MonikaAi(pickle.load(open(renpy.loader.transfn("gibberish_model.pki"), 'rb')))
+    #chatter_monika = MonikaAi(pickle.load(open(renpy.loader.transfn(os.path.dirname(inspect.getfile(mcai)) + '/gibberish_model.pki'), 'rb')))
+    chatter_monika = MonikaAi(renpy.loader.transfn(os.path.dirname(inspect.getfile(mcai))))
     process_list = []
     currentuser = None # start if with no currentuser
     if renpy.windows:
@@ -642,14 +647,13 @@ label ch30_monikachat:
         continue_chat = True
         need_player_input = True
         input_tooltip = 'What would you like to tell Monika?'
-        chatter_monika.reset()
         while continue_chat:
             if need_player_input: 
                 player_dialogue = renpy.input(input_tooltip,default='',pixel_width=720,length=50)
             if player_dialogue:
                 raw_dialogue=player_dialogue
                 player_dialogue = player_dialogue.lower()
-                player_dialogue = re.sub(r'[^\w\s]','',player_dialogue) #remove punctuation
+                #player_dialogue = re.sub(r'[^\w\s]','',player_dialogue) #remove punctuation
                 persistent.current_monikatopic = 0
                 response, emotion, continue_chat, need_player_input = chatter_monika.chat(raw_dialogue)
                 #m("[response]", image='monika 1k')

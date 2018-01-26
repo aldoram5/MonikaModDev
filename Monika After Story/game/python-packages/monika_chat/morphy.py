@@ -44,6 +44,7 @@ class Morphy:
 
     #
     # morphy function based on WordNet morphy function
+    # https://wordnet.princeton.edu/man/morphy.7WN.html
     #
 
     def morphy(self,word, pos_tag=None):
@@ -65,9 +66,10 @@ class Morphy:
                 if base is not None:
                     return base
                 # morphy transforms
-                re.sub(r'(s)\b', '', word)
-                re.sub(r'(s)\b', '', word)
-                re.sub(r'', '', word)
+                new, changes = re.subn(r'(er)\b', '', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(est)\b', '', word)
+                if changes > 0: return new
             elif 'RB' in pos_tag:
                 # It must be an adverb
                 base = self.advs.get(word, None)
@@ -80,16 +82,34 @@ class Morphy:
                 if base is not None:
                     return base
                 # morphy transforms for nouns
-                re.sub(r'(s)\b', '', word)
-                re.sub(r'(ses)\b', 's', word)
-                re.sub(r'(xes)\b', 'x', word)
-                re.sub(r'(zes)\b', 'z', word)
-                re.sub(r'(ches)\b', 'ch', word)
-                re.sub(r'(shes)\b', 'sh', word)
-                re.sub(r'(men)\b', 'man', word)
-                re.sub(r'(ies)\b', 'y', word)
+                new, changes = re.subn(r'(ses)\b', 's', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(xes)\b', 'x', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(zes)\b', 'z', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(ches)\b', 'ch', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(shes)\b', 'sh', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(men)\b', 'man', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(ies)\b', 'y', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(s)\b', '', word)
+                if changes > 0: return new
             elif 'VB' in pos_tag:
                 # It must be an verb
                 base = self.verbs.get(word, None)
                 if base is not None:
                     return base
+                new, changes = re.subn(r'(ies)\b', 'y', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(es)\b', '', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(s)\b', '', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(ing)\b', '', word)
+                if changes > 0: return new
+                new, changes = re.subn(r'(ed)\b', '', word)
+                if changes > 0: return new

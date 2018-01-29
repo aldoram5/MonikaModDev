@@ -5,7 +5,7 @@
 #   persistent._seen_ever
 #   persistent.version_number
 
-# preeverything stuff 
+# preeverything stuff
 init -10 python:
     found_monika_ani = persistent.monika_anniversary is not None
     no_topics_list = persistent.monika_random_topics is None
@@ -30,7 +30,7 @@ init python:
     def removeTopicID(topicID):
         #
         # Removes one topic from the _seen_ever variable
-        # topics list (if it exists in either var) (persistent is also 
+        # topics list (if it exists in either var) (persistent is also
         # checked for existence)
         #
         # IN:
@@ -63,9 +63,9 @@ init python:
         for oldTopic in changedIDs:
             if updating_persistent._seen_ever.pop(oldTopic,False):
                 updating_persistent._seen_ever[changedIDs[oldTopic]] = True
-                
+
         return updating_persistent
-                    
+
 
 
     def updateTopicIDs(version_number,updating_persistent=persistent):
@@ -84,13 +84,13 @@ init python:
         #   updates.topics
         if version_number in updates.topics:
             changedIDs = updates.topics[version_number]
-        
-        
+
+
             if changedIDs is not None:
                 updating_persistent = adjustTopicIDs(
                     changedIDs, updating_persistent
                 )
-        
+
         return updating_persistent
 
 
@@ -104,11 +104,14 @@ init python:
         #
         # ASSUMES:
         #   updates.version_updates
-        
+
         while startVers in updates.version_updates:
-            renpy.call_in_new_context(
-                updates.version_updates[startVers]
-            )
+
+            updateTo = updates.version_updates[startVers]
+
+            # we should only call update labels that we have
+            if renpy.has_label(updateTo):
+                renpy.call_in_new_context(updateTo, updateTo)
             startVers = updates.version_updates[startVers]
 
 
@@ -122,25 +125,25 @@ init 10 python:
         # here comes the logic train
         if no_topics_list:
             # we are in version 0.2.2 (the horror!)
-            updateGameFrom("v022")
-            
+            updateGameFrom("v0_2_2")
+
         elif (renpy.seen_label("monika_ribbon") or
                 "monika_ribbon" in persistent.monika_random_topics):
             # we are in version 0.3.3
-            updateGameFrom("v033")
+            updateGameFrom("v0_3_3")
 
-        elif found_monika_ani: 
+        elif found_monika_ani:
             # we are in version 0.3.2
-            updateGameFrom("v032")
+            updateGameFrom("v0_3_2")
 
         elif (renpy.seen_label("monika_monika") or
                 "monika_monika" in persistent.monika_random_topics):
             # we are in version 0.3.1
-            updateGameFrom("v031")
+            updateGameFrom("v0_3_1")
 
         else:
             # we are in version 0.3.0
-            updateGameFrom("v030")
+            updateGameFrom("v0_3_0")
 
         # set the version now
         persistent.version_number = config.version
@@ -150,7 +153,7 @@ init 10 python:
 
     elif persistent.version_number != config.version:
         # parse this version number into something we can use
-        vvvv_version = "v"+"".join(persistent.version_number.split("."))
+        vvvv_version = "v"+"_".join(persistent.version_number.split("."))
         # so update!
         updateGameFrom(vvvv_version)
 
@@ -171,22 +174,64 @@ init 10 python:
 #
 # NOTE: the labels here mean we are updating TO this version
 
-# 0.6.1
-label v061:
+# all generic (only updateTopicID calls) go here
+label vgenericupdate(version="v0_2_2"):
+label v0_6_1(version=version): # 0.6.1
+label v0_5_1(version=version): # 0.5.1
+label v0_3_3(version=version): # 0.3.3
+label v0_3_2(version=version): # 0.3.2
+label v0_3_1(version=version): # 0.3.1
     python:
         # update !
-        persistent = updateTopicIDs("v061")
+        persistent = updateTopicIDs(version)
+
     return
 
-# 0.5.1
-label v051:
+# non generic updates go here
+
+# 0.7.0
+label v0_7_0(version="v0_7_0"):
     python:
-        # update!
-        persistent = updateTopicIDs("v051")
+        # check for christmas existence and delete!
+        import os
+        try: os.remove(config.basedir + "/game/christmas.rpyc")
+        except: pass
+
+        # update !
+        persistent = updateTopicIDs(version)
+
+        temp_event_list = persistent.event_list
+        # now properly set all seen events as unlocked
+        import store.evhand as evhand
+        for k in evhand.event_database:
+            event = evhand.event_database[k]
+            if (renpy.seen_label(event.eventlabel)
+                and (event.pool
+                    or event.random
+                    or event.action == EV_ACT_POOL
+                    or event.action == EV_ACT_RANDOM
+                )):
+                event.unlocked = True
+                event.conditional = None
+
+                #Grant some XP so existing players don't start at square 1
+                grant_xp(xp.NEW_EVENT)
+
+        #Clear the "Add prompt" events that this adds to the stack
+        persistent.event_list = temp_event_list
+
+        #Unlock chess if they've already played it
+        if seen_event('game_chess'):
+            persistent.game_unlocks['chess']=True
+
+        #Unlock the name change topic if the name change topic has been seen
+        if seen_event('preferredname'):
+            evhand.event_database["monika_changename"].unlocked = True
+
     return
 
 # 0.4.0
-label v040:
+label v0_4_0(version="v0_4_0"):
     python:
         # persistent topics are dunzo
         persistent.monika_random_topics = None
@@ -196,38 +241,13 @@ label v040:
         #persistent = updateTopicIDs("v040")
     return
 
-# 0.3.3
-label v033:
-    python:
-        # add additional update code here
-
-        # update!
-        persistent = updateTopicIDs("v033")
-    return
-
-# 0.3.2
-label v032:
-    python:
-
-        # update!
-        persistent = updateTopicIDs("v032")
-    return
-
-# 0.3.1
-label v031:
-    python:
-        # update!
-        persistent = updateTopicIDs("v031")
-
-    return
-
 # 0.3.0
-label v030:
+label v0_3_0(version="v0_3_0"):
     python:
         # the following labels are special cases because of conflicts
         removeTopicID("monika_piano")
         removeTopicID("monika_college")
 
         # update!
-        persistent = updateTopicIDs("v030")
+        persistent = updateTopicIDs(version)
     return

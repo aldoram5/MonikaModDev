@@ -1,4 +1,5 @@
-
+init 100 python:
+    layout.QUIT = "Leaving without saying goodbye, [player]?"
 ## Initialization
 ################################################################################
 
@@ -335,6 +336,21 @@ screen rigged_choice(items):
             textbutton i.caption action i.action
 
     timer 1.0/30.0 repeat True action Function(RigMouse)
+
+style talk_choice_vbox is choice_vbox:
+    xcenter 960
+
+style talk_choice_button is choice_button
+style talk_choice_button_text is choice_button_text
+
+
+## This screen is used for the talk menu
+screen talk_choice(items):
+    style_prefix "talk_choice"
+
+    vbox:
+        for i in items:
+            textbutton i.caption action i.action
 
 
 ## When this is true, menu captions will be spoken by the narrator. When false,
@@ -1409,6 +1425,34 @@ screen dialog(message, ok_action):
 
                 textbutton _("OK") action ok_action
 
+screen quit_dialog(message, ok_action):
+
+    ## Ensure other screens do not get input while this screen is displayed.
+    modal True
+
+    zorder 200
+
+    style_prefix "confirm"
+
+    add "gui/overlay/confirm.png"
+
+    frame:
+
+        vbox:
+            xalign .5
+            yalign .5
+            spacing 30
+
+            label _(message):
+                style "confirm_prompt"
+                xalign 0.5
+
+            hbox:
+                xalign 0.5
+                spacing 100
+
+                textbutton _("QUIT") action ok_action
+
 image confirm_glitch:
     "gui/overlay/confirm_glitch.png"
     pause 0.02
@@ -1446,8 +1490,8 @@ screen confirm(message, yes_action, no_action):
                 xalign 0.5
                 spacing 100
 
-                textbutton _("Yes") action yes_action
-                textbutton _("No") action no_action
+                textbutton _("Yes") action Show(screen="quit_dialog", message="Please don't close the game on me!", ok_action=yes_action)
+                textbutton _("No") action no_action, Show(screen="dialog", message="Thank you, [player]!\nLet's spend more time together~", ok_action=Hide("dialog"))
 
     ## Right-click and escape answer "no".
     #key "game_menu" action no_action
@@ -1696,3 +1740,203 @@ style notify_frame:
 
 style notify_text:
     size gui.notify_text_size
+
+## This part of the code is used to create the tutorial selection screen.
+
+#Each tutorial is defined by its name (caption) and its label,
+#items is the list of caption and label of each tutorial
+#init python is necessary because items is a List, a python object
+
+init python:
+
+    items = [(_("Introduction"),"example_chapter")
+        ,(_("Route Part 1, How To Make A Mod"),"tutorial_route_p1")
+        ,(_("Route Part 2, Music"),"tutorial_route_p2")
+        ,(_("Route Part 3, Scene"),"tutorial_route_p3")
+        ,(_("Route Part 4, Dialogue"),"tutorial_route_p4")
+        ,(_("Route Part 5, Menu"),"tutorial_route_p5")
+        ,(_("Route Part 6, Logic Statement"),"tutorial_route_p6")
+        ,(_("Route Part 7, Sprite"),"tutorial_route_p7")
+        ,(_("Route Part 8, Position"),"tutorial_route_p8")
+        ,(_("Route Part 9, Ending"),"tutorial_route_p9")]
+
+
+## Scrollable Menu ###############################################################
+##
+## This screen creates a vertically scrollable menu of prompts attached to labels
+
+#Define the properties of the object textbutton. textbutton is made by two parts:
+#button and button_text. To customize textbutton, both botton and button_text need to be modified
+#This part is usually found in gui.rpy
+
+define prev_adj = ui.adjustment()
+define main_adj = ui.adjustment()
+define gui.scrollable_menu_button_width = 560
+define gui.scrollable_menu_button_height = None
+define gui.scrollable_menu_button_tile = False
+define gui.scrollable_menu_button_borders = Borders(25, 5, 25, 5)
+
+define gui.scrollable_menu_button_text_font = gui.default_font
+define gui.scrollable_menu_button_text_size = gui.text_size
+define gui.scrollable_menu_button_text_xalign = 0.0
+define gui.scrollable_menu_button_text_idle_color = "#000"
+define gui.scrollable_menu_button_text_hover_color = "#fa9"
+
+# twopane_scrollabe is now a prefix
+define gui.twopane_scrollable_menu_button_width = 250
+define gui.twopane_scrollable_menu_button_height = None
+define gui.twopane_scrollable_menu_button_tile = False
+define gui.twopane_scrollable_menu_button_borders = Borders(25, 5, 25, 5)
+
+define gui.twopane_scrollable_menu_button_text_font = gui.default_font
+define gui.twopane_scrollable_menu_button_text_size = gui.text_size
+define gui.twopane_scrollable_menu_button_text_xalign = 0.0
+define gui.twopane_scrollable_menu_button_text_idle_color = "#000"
+define gui.twopane_scrollable_menu_button_text_hover_color = "#fa9"
+
+#Define the styles used for scrollable_menu_vbox, scrollable_menu_button and scrollable_menu_button_text
+# The line properties gui.button_properties("scrollable_menu_button") assigns all
+# attributes of gui.scrollable_menu_button to the style scrollable_menu_button
+# and the style scrollable_menu_button_text
+
+style scrollable_menu_vbox:
+    xalign 0.5
+    ypos 270
+    yanchor 0.5
+
+    spacing 5
+
+style scrollable_menu_button is choice_button:
+    properties gui.button_properties("scrollable_menu_button")
+
+style scrollable_menu_button_text is choice_button_text:
+    properties gui.button_text_properties("scrollable_menu_button")
+
+style scrollable_menu_new_button is scrollable_menu_button
+
+style scrollable_menu_new_button_text is scrollable_menu_button_text:
+    italic True
+
+style scrollable_menu_special_button is scrollable_menu_button
+
+style scrollable_menu_special_button_text is scrollable_menu_button_text:
+    bold True
+
+# two pane stuff
+style twopane_scrollable_menu_vbox:
+    xalign 0.5
+    ypos 270
+    yanchor 0.5
+
+    spacing 5
+
+style twopane_scrollable_menu_button is choice_button:
+    properties gui.button_properties("twopane_scrollable_menu_button")
+
+style twopane_scrollable_menu_button_text is choice_button_text:
+    properties gui.button_text_properties("twopane_scrollable_menu_button")
+
+style twopane_scrollable_menu_new_button is twopane_scrollable_menu_button
+
+style twopane_scrollable_menu_new_button_text is twopane_scrollable_menu_button_text:
+    italic True
+
+style twopane_scrollable_menu_special_button is twopane_scrollable_menu_button
+
+style twopane_scrollable_menu_special_button_text is twopane_scrollable_menu_button_text:
+    bold True
+
+#scrollable_menu selection screen
+#This screen is based on work from the tutorial menu selection by haloff1
+
+screen twopane_scrollable_menu(prev_items, main_items, left_area, left_align, right_area, right_align, cat_length):
+        style_prefix "twopane_scrollable_menu"
+
+        fixed:
+            area left_area
+
+            bar adjustment prev_adj style "vscrollbar" xalign left_align
+
+            viewport:
+                yadjustment prev_adj
+                mousewheel True
+                arrowkeys True
+
+                vbox:
+
+                    for i_caption,i_label in prev_items:
+                        textbutton i_caption:
+                            if renpy.has_label(i_label) and not seen_event(i_label):
+                                style "twopane_scrollable_menu_new_button"
+                            if not renpy.has_label(i_label):
+                                style "twopane_scrollable_menu_special_button"
+
+                            action Return(i_label)
+
+
+
+                    null height 20
+
+                    if cat_length == 0:
+                        textbutton _("That's enough for now.") action Return(False)
+                    elif cat_length > 1:
+                        textbutton _("Go Back") action Return(-1)
+
+
+        if main_items:
+
+            fixed:
+                area right_area
+
+                bar adjustment main_adj style "vscrollbar" xalign right_align
+
+                viewport:
+                    yadjustment main_adj
+                    mousewheel True
+                    arrowkeys True
+
+                    vbox:
+
+                        for i_caption,i_label in main_items:
+                            textbutton i_caption:
+                                if renpy.has_label(i_label) and not seen_event(i_label):
+                                    style "twopane_scrollable_menu_new_button"
+                                if not renpy.has_label(i_label):
+                                    style "twopane_scrollable_menu_special_button"
+
+                                action Return(i_label)
+
+                        null height 20
+
+                        textbutton _("That's enough for now.") action Return(False)
+
+# the regular scrollabe menu
+screen scrollable_menu(items, display_area, scroll_align):
+        style_prefix "scrollable_menu"
+
+        fixed:
+            area display_area
+
+            bar adjustment prev_adj style "vscrollbar" xalign scroll_align
+
+            viewport:
+                yadjustment prev_adj
+                mousewheel True
+
+                vbox:
+#                    xpos x
+#                    ypos y
+
+                    for i_caption,i_label in items:
+                        textbutton i_caption:
+                            if renpy.has_label(i_label) and not seen_event(i_label):
+                                style "scrollable_menu_new_button"
+                            if not renpy.has_label(i_label):
+                                style "scrollable_menu_special_button"
+                            action Return(i_label)
+
+
+
+                    null height 20
+
+                    textbutton _("That's enough for now.") action Return(False)

@@ -15,6 +15,7 @@ from morphy import Morphy
 
 
 class MonikaAi:
+
     def __init__(self, base_dir=None):
         if base_dir is None:
             folder = os.path.dirname(inspect.getfile(mr))
@@ -27,6 +28,15 @@ class MonikaAi:
         self.pos_tagger = PerceptronTagger(base_dir=base_dir)
         self.memory = MonikaMemory()
         self.morphy = Morphy(base_dir=base_dir)
+        # self.greeting_conversations =
+        # self.thanking_conversations =
+        # self.apology_conversations = mr.
+        self.opinion_monika_conversations = mr.get_opinion_monika_conversations()
+        self.yes_no_query_conversations = mr.get_yes_no_query_conversations()
+        self.wh_query_conversations = mr.get_wh_query_conversations()
+        # self.current_state_query =
+        self.statements_conversations = mr.get_statements_conversations()
+
 
     def classify_sentence(self, sentence):
         if self.detect_gibberish( sentence):

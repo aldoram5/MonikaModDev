@@ -17,4 +17,4 @@ how_are_you_variants = ["what is up", "how is it going", "how are you doing",
 time_related = ["day", "evening", "night", "afternoon", "morning"]
 
 # Valid terms gibberish detector should let pass
-short_valid_messages = ["hi", "hey", "mmm", "sup", "hiya", "yo"]
+short_valid_messages = ["hi", "hey", "mmm", "sup", "hiya", "yo", "love"]

@@ -19,7 +19,6 @@ class TemporalMemory:
         self.verb = ""
         self.adjective = ""
         self.noun = ""
-        self.current_conversation = None
 
 
 class PermanentMemory:

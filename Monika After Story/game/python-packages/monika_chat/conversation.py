@@ -30,19 +30,24 @@ class Node:
         self.display_text = ""
         self.reaction = ""
         self.next_node = None
-        self.input_type = ""
+        self.input_type = None
         self.final_action = None
         self.options = []
-        self.possible_nodes = []
 
-    def add_option(self,text_option):
-        self.options.append(text_option)
+    def add_option(self,text_option, next_node_id):
+        self.options.append((text_option,next_node_id))
 
     def determine_next_node(self,selected_option):
         if selected_option < len(self.possible_nodes):
             return self.possible_nodes[selected_option]
         else:
             return None
+
+    def set_input_multi(self):
+        self.input_type = "multi"
+
+    def set_input_text(self):
+        self.input_type = "text"
 
 
 class Action:

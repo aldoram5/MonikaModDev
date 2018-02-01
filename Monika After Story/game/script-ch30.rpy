@@ -659,17 +659,27 @@ label ch30_monikachat:
         continue_chat = True
         need_player_input = True
         input_tooltip = 'What would you like to tell Monika?'
+        player_dialogue = renpy.input(input_tooltip,default='',pixel_width=720,length=50)
+        if player_dialogue:
+            raw_dialogue=player_dialogue
+            chatter_monika.start_chat(raw_dialogue)
+        else:
+            continue_chat = False
         while continue_chat:
+            response, emotion, continue_chat, need_player_input, menu_options = chatter_monika.chat(raw_dialogue)
+            if emotion is not None and emotion:
+                renpy.show('monika '+ emotion)
             if need_player_input: 
                 player_dialogue = renpy.input(input_tooltip,default='',pixel_width=720,length=50)
-            if player_dialogue:
-                raw_dialogue=player_dialogue
-                player_dialogue = player_dialogue.lower()
-                #player_dialogue = re.sub(r'[^\w\s]','',player_dialogue) #remove punctuation
-                persistent.current_monikatopic = 0
-                response, emotion, continue_chat, need_player_input = chatter_monika.chat(raw_dialogue)
-                #m("[response]", image='monika 1k')
-                renpy.show('monika '+ emotion)
+                if player_dialogue:
+                    raw_dialogue = player_dialogue
+            else:
+                raw_dialogue = None
+            if menu_options is not None and len(menu_options) > 0:
+                selection = renpy.display_menu(menu_options, interact=True, screen="choice")
+                chatter_monika.next_chat_node = selection
+                continue_chat = True
+            if response is not None and response:
                 renpy.say(m,"[response]")
                 
 

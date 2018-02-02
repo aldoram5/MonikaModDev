@@ -1,3 +1,4 @@
+import json
 
 class Conversation:
 
@@ -8,6 +9,15 @@ class Conversation:
         self.trigger_subject = ""
         self.next_node = ""
         self.nodes = {}
+
+    def load_from_json(self,json_data):
+        data = json.load(json_data)
+        self.trigger_verb = data["verb"]
+        self.trigger_adj = data["adjective"]
+        self.trigger_subject = data["subject"]
+        self.trigger_noun = data["referingNoun"]
+        self.next_node = data["nextNode"]
+
 
     def add_node(self,node):
         if not node.id or node.id is None:
@@ -56,6 +66,16 @@ class Action:
         self.type = ""
         self.key = None
         self.value = None
+
+    def load_from_json(self,json_data):
+        data = json.load(json_data)
+        self.load_from_array_json(data)
+
+    def load_from_array_json(self,data):
+        self.type = data['type']
+        self.key = data['key']
+        self.value = data['value']
+
 
     def set_check_value_type(self):
         self.type = "check"

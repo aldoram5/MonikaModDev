@@ -33,11 +33,11 @@ class MonikaAi:
         # self.greeting_conversations =
         # self.thanking_conversations =
         # self.apology_conversations = mr.
-        self.opinion_monika_conversations = mr.get_opinion_monika_conversations()
-        self.yes_no_query_conversations = mr.get_yes_no_query_conversations()
-        self.wh_query_conversations = mr.get_wh_query_conversations()
+        self.opinion_monika_conversations = mr.get_opinion_monika_conversations(base_dir)
+        self.yes_no_query_conversations = mr.get_yes_no_query_conversations(base_dir)
+        self.wh_query_conversations = mr.get_wh_query_conversations(base_dir)
         # self.current_state_query =
-        self.statements_conversations = mr.get_statements_conversations()
+        self.statements_conversations = mr.get_statements_conversations(base_dir)
 
     def classify_sentence(self, sentence):
         if self.detect_gibberish(sentence):

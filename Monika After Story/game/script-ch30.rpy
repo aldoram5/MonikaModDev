@@ -703,12 +703,11 @@ label ch30_monikachat:
                     raw_dialogue = player_dialogue
             else:
                 raw_dialogue = None
+            if response is not None and response:
+                renpy.say(m,"[response]")
             if menu_options is not None and len(menu_options) > 0:
                 selection = renpy.display_menu(menu_options, interact=True, screen="choice")
                 chatter_monika.next_chat_node = selection
-                continue_chat = True
-            if response is not None and response:
-                renpy.say(m,"[response]")
                 
 
         allow_dialogue = True

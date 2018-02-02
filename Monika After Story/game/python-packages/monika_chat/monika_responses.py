@@ -77,19 +77,19 @@ def get_answer_for_current_state_query():
     return conversation
 
 
+def get_opinion_monika_conversations(base_dir):
+    conversations = {}
 
 
 
-def get_opinion_monika_conversations():
+def get_yes_no_query_conversations(base_dir):
     conversations = {}
     gibber1 = Conversation()
 
-def get_yes_no_query_conversations():
-    conversations = {}
-    gibber1 = Conversation()
 
-def get_wh_query_conversations():
+def get_wh_query_conversations(base_dir):
     pass
 
-def get_statements_conversations():
+
+def get_statements_conversations(base_dir):
     pass

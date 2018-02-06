@@ -18,6 +18,7 @@ import logging
 from utils import strip_punc
 from collections import defaultdict
 
+
 class AveragedPerceptron(object):
 
     '''An averaged perceptron, as implemented by Matthew Honnibal.

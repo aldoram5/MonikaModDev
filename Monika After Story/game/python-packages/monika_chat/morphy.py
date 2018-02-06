@@ -26,9 +26,6 @@ class Morphy:
 
         if base_dir is None:
             base_dir = os.path.dirname(inspect.getfile(self.__class__))
-            self.gib_detector = pickle.load(open(os.path.join(base_dir, 'gibberish_model.pki'), 'rb'))
-        else:
-            self.gib_detector = pickle.load(open(os.path.join(base_dir, 'verbs.pickle'), 'rb'))
         self.nouns = {}
         with open(os.path.join(base_dir, 'nouns.pickle'), 'rb') as handle:
             self.nouns = pickle.load(handle)

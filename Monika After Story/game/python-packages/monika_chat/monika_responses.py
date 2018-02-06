@@ -1,7 +1,18 @@
+import os
+import glob
+import inspect
+import utils
 from conversation import Action, Conversation, Node
 
-# Monika's predefined answers when you tell nonsense to her
+STATEMENTS = "statements"
 
+WH_QUESTIONS = "wh-questions"
+
+YN_QUESTIONS = "yn-questions"
+
+OPINIONS_RELATIVE_PATH = "opinions"
+
+# Monika's predefined answers when you tell nonsense to her
 answers_for_gibberish =\
     [[("Why would you say that to me?", "1c",),("That didn't make any sense.", "1q")],
                         [("What was that?", "1m"),("Stop teasing me like that.", "1n")],
@@ -27,8 +38,8 @@ answers_for_current_state_query =\
                         [("Oh, hello there!", "1j")],
                         [("Hi honey!", "1j")]]
 
+monika_predef_answers = {"nonsense": answers_for_gibberish, "greeting": answers_for_greetings}
 
-monika_predef_answers = {"nonsense": answers_for_gibberish, "greeting" : answers_for_greetings}
 
 def get_answer_for_current_state_query():
     conversation = Conversation()
@@ -77,19 +88,30 @@ def get_answer_for_current_state_query():
     return conversation
 
 
-def get_opinion_monika_conversations(base_dir):
-    conversations = {}
+def get_opinion_monika_conversations(base_dir=None):
+    return get_conversations_in_folder(base_dir, OPINIONS_RELATIVE_PATH)
 
 
-
-def get_yes_no_query_conversations(base_dir):
-    conversations = {}
-    gibber1 = Conversation()
+def get_yes_no_query_conversations(base_dir=None):
+    return get_conversations_in_folder(base_dir, YN_QUESTIONS)
 
 
-def get_wh_query_conversations(base_dir):
-    pass
+def get_wh_query_conversations(base_dir=None):
+    return get_conversations_in_folder(base_dir, WH_QUESTIONS)
 
 
-def get_statements_conversations(base_dir):
-    pass
+def get_statements_conversations(base_dir=None):
+    return get_conversations_in_folder(base_dir, STATEMENTS)
+
+
+def get_conversations_in_folder(base_dir=None,folder=None):
+    if base_dir is None:
+        base_dir = os.path.dirname(inspect.getfile(utils))
+    folder = os.path.join(base_dir, folder)
+    conversations = []
+    for file_name in glob.glob(os.path.join(folder, '*.json')):
+        with open(file_name, 'r') as json_data:
+            conversation = Conversation()
+            conversation.load_from_json(json_data)
+            conversations.append(conversation)
+    return conversations

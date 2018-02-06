@@ -20,9 +20,9 @@ class MonikaAi:
     def __init__(self, base_dir=None):
         if base_dir is None:
             folder = os.path.dirname(inspect.getfile(mr))
-            self.gib_detector = pickle.load(open(os.path.join(folder , 'gibberish_model.pki'), 'rb'))
+            self.gib_detector = pickle.load(open(os.path.join(folder, 'gibberish_model.pki'), 'rb'))
         else:
-            self.gib_detector = pickle.load(open(os.path.join(base_dir , 'gibberish_model.pki') , 'rb'))
+            self.gib_detector = pickle.load(open(os.path.join(base_dir, 'gibberish_model.pki') , 'rb'))
         self.current_chat_index = 0
         self.current_chat = None
         self.next_chat_node = None
@@ -34,6 +34,7 @@ class MonikaAi:
         # self.thanking_conversations =
         # self.apology_conversations = mr.
         self.opinion_monika_conversations = mr.get_opinion_monika_conversations(base_dir)
+        print(self.opinion_monika_conversations)
         self.yes_no_query_conversations = mr.get_yes_no_query_conversations(base_dir)
         self.wh_query_conversations = mr.get_wh_query_conversations(base_dir)
         # self.current_state_query =
@@ -43,10 +44,10 @@ class MonikaAi:
         if self.detect_gibberish(sentence):
             return "nonsense"
         else:
-
-            # check for greetings first
-            clean_sentence = utils.strip_punc(sentence,True)
-            clean_sentence_lower = clean_sentence.lower()
+            # check for current_state_query first
+            clean_sentence = utils.strip_punc(sentence, True)
+            expanded_sentence = utils.expand_contractions(clean_sentence)
+            clean_sentence_lower = expanded_sentence.lower()
             if clean_sentence_lower in mwl.how_are_you_variants:
                 return "current_state_question"
             # classify normally

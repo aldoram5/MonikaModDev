@@ -34,7 +34,6 @@ class MonikaAi:
         # self.thanking_conversations =
         # self.apology_conversations = mr.
         self.opinion_monika_conversations = mr.get_opinion_monika_conversations(base_dir)
-        print(self.opinion_monika_conversations)
         self.yes_no_query_conversations = mr.get_yes_no_query_conversations(base_dir)
         self.wh_query_conversations = mr.get_wh_query_conversations(base_dir)
         # self.current_state_query =
@@ -43,17 +42,61 @@ class MonikaAi:
     def classify_sentence(self, sentence):
         if self.detect_gibberish(sentence):
             return "nonsense"
-        else:
-            # check for current_state_query first
-            clean_sentence = utils.strip_punc(sentence, True)
-            expanded_sentence = utils.expand_contractions(clean_sentence)
-            clean_sentence_lower = expanded_sentence.lower()
-            if clean_sentence_lower in mwl.how_are_you_variants:
-                return "current_state_question"
-            # classify normally
-            tagged = self.pos_tagger.tag(sentence)
-            self.memory.store_current_sentence_data(tagged)
+        # check for current_state_query first
+        clean_sentence = utils.strip_punc(sentence, True)
+        expanded_sentence = utils.expand_contractions(clean_sentence)
+        clean_sentence_lower = expanded_sentence.lower()
+        if clean_sentence_lower in mwl.how_are_you_variants:
+            return "current_state_question"
+        # check for greetings
+        if re.search(r"\b(hi|hello|howdy|hiya)\b",clean_sentence_lower) or \
+                re.search(r"\s{0,1}\bgood\b\s{0,1}(morning|afternoon|day|evening)", clean_sentence_lower):
             return "greeting"
+        tagged = self.pos_tagger.tag(sentence)
+        base_forms = []
+        for word,tag in tagged:
+            base_word = self.morphy.morphy(word, tag)
+            base_tag = tag
+            if 'VB' in base_tag: base_tag = 'VB'
+            base_forms.append((word if base_word is None else base_word,base_tag))
+        self.memory.store_current_sentence_data(base_forms)
+        if '?' in sentence:
+            print("found question")
+            if [(word, tag) for (word, tag) in base_forms if tag in mwl.wh_question_tags]:
+                print("found tag for WH")
+                return "wh-question"
+            elif [(word, tag) for (word, tag) in base_forms if 'MD' in tag]:
+                print("found MD")
+                return "yn-question"
+            elif [(word, tag) for (word, tag) in base_forms if word.lower() in mwl.yn_verbs]:
+                print("found verbs")
+                return "yn-question"
+        else:
+            if "monika" in clean_sentence_lower:
+                return "opinion"
+            else:
+                state_about_her = False
+                player_verb = False
+                player_verb_her = False
+                for base_word,tag in base_forms:
+                    word = base_word.lower()
+                    if player_verb:
+                        if "VB" == tag:
+                            player_verb_her = True
+                        else:
+                            player_verb = False
+                    if state_about_her:
+                        if "be" == word:
+                            return "opinion"
+                    if "i" == word or "me" == word:
+                        player_verb = True
+                    if "you" == word:
+                        state_about_her = True
+                        if player_verb_her:
+                            return "opinion"
+                    else:
+                        state_about_her = False
+        return "statement"
 
     def detect_gibberish(self, text):
         clean = utils.strip_punc(text,True)
@@ -84,6 +127,7 @@ class MonikaAi:
     def start_chat(self, sentence):
 
         sentence_type = self.classify_sentence(sentence)
+        print(sentence_type)
         if sentence_type in mr.monika_predef_answers:
             answers = mr.monika_predef_answers[sentence_type]
             self.current_chat = random.choice(answers)

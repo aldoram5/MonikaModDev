@@ -156,6 +156,7 @@ class PerceptronTagger():
         '''Tags a string `corpus`.'''
         # Assume untokenized corpus has \n between sentences and ' ' between words
         w_split = tokenize if use_tokens else lambda s: s.split()
+
         def split_sents(corpus):
             yield w_split(corpus)
 

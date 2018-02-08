@@ -17,8 +17,9 @@
 import math
 import string
 import re
-import pickle
 import datetime
+from difflib import SequenceMatcher
+
 
 contractions_dict = {
   "ain't": "am not",
@@ -133,6 +134,32 @@ def strip_punc(s, all=False):
         return PUNCTUATION_REGEX.sub('', s.strip())
     else:
         return s.strip().strip(string.punctuation)
+
+
+def calculate_string_distance(first, final):
+    return SequenceMatcher(None, first, final).ratio()
+
+def check_conversation_matching(conversation, verb, adjective, subject, noun):
+    matches = False
+    if conversation.trigger_verb and verb:
+        if calculate_string_distance(conversation.trigger_verb, verb) > 0.7:
+            matches = True
+
+    if conversation.trigger_adj and adjective:
+        if calculate_string_distance(conversation.trigger_adj, adjective) > 0.7:
+            matches = True
+
+    if conversation.trigger_subject and subject:
+        if calculate_string_distance(conversation.trigger_subject, subject) > 0.7:
+            matches = True
+
+    if conversation.trigger_noun and noun:
+        if calculate_string_distance(conversation.trigger_noun, noun) > 0.7:
+            matches = True
+
+    return matches
+
+
 #
 # gibberish detector functions
 #

@@ -86,6 +86,7 @@ init python:
     import re
     import pickle
     import inspect
+    import string
     import store.songs as songs
     import store.hkb_button as hkb_button
     import monika_chat.monika_ai as mcai
@@ -676,7 +677,8 @@ label ch30_monikachat:
             else:
                 raw_dialogue = None
             if response is not None and response:
-                renpy.say(m,"[response]")
+                response = string.replace(response, "$PLAYER", persistent.playername)
+                renpy.say(m,"[response]" )
             if menu_options is not None and len(menu_options) > 0:
                 selection = renpy.display_menu(menu_options, interact=True, screen="choice")
                 chatter_monika.next_chat_node = selection

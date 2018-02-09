@@ -59,6 +59,7 @@ class Node:
         self.id = data["id"]
         self.input_type = data["inputType"]
         self.next_node = data["nextNode"]
+        self.display_text = data["displayText"]
         self.reaction = data["reaction"]
         for option in data["options"]:
             self.add_option(option["text"], option["nextNode"])

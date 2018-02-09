@@ -98,11 +98,7 @@ class Morphy:
                 if changes > 0: return new
             elif 'VB' in pos_tag:
                 # It must be an verb
-                print(pos_tag)
-                print (word)
                 base = self.verbs.get(word, None)
-                print(base)
-                print (self.verbs)
                 if base is not None:
                     return base
                 new, changes = re.subn(r'(ies)\b', 'y', word)

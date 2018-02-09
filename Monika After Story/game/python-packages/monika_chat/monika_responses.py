@@ -4,6 +4,8 @@ import inspect
 import utils
 from conversation import Action, Conversation, Node
 
+NO_ANSWER = "no-answer"
+
 STATEMENTS = "statements"
 
 WH_QUESTIONS = "wh-questions"
@@ -115,3 +117,6 @@ def get_conversations_in_folder(base_dir=None,folder=None):
             conversation.load_from_json(json_data)
             conversations.append(conversation)
     return conversations
+
+def get_default_chat(base_dir=None):
+    return get_conversations_in_folder(base_dir, NO_ANSWER)

@@ -107,7 +107,7 @@ contractions_dict = {
   "you've": "you have"
 }
 
-contractions_regex = re.compile('(%s)'.format('|'.join(contractions_dict.keys())))
+contractions_regex = re.compile(r'('+'|'.join(contractions_dict.keys())+')')
 
 PUNCTUATION_REGEX = re.compile('[{0}]'.format(re.escape(string.punctuation)))
 
@@ -121,7 +121,7 @@ def contractions_replace(match):
 
 
 def expand_contractions(text, regex=contractions_regex):
-    return regex.sub(contractions_replace, text)
+    return regex.sub(contractions_replace, text.lower())
 
 
 def strip_punc(s, all=False):
@@ -137,27 +137,43 @@ def strip_punc(s, all=False):
 
 
 def calculate_string_distance(first, final):
-    return SequenceMatcher(None, first, final).ratio()
+    return SequenceMatcher(None, first.lower(), final.lower()).ratio()
+
 
 def check_conversation_matching(conversation, verb, adjective, subject, noun):
     matches = False
+    averaged_score = 0
+    scores = []
     if conversation.trigger_verb and verb:
-        if calculate_string_distance(conversation.trigger_verb, verb) > 0.7:
+        score = calculate_string_distance(conversation.trigger_verb, verb)
+        averaged_score += score
+        scores.append(score)
+        if score > 0.7:
             matches = True
 
     if conversation.trigger_adj and adjective:
-        if calculate_string_distance(conversation.trigger_adj, adjective) > 0.7:
+        score = calculate_string_distance(conversation.trigger_adj, adjective)
+        averaged_score += score
+        scores.append(score)
+        if score > 0.7:
             matches = True
 
     if conversation.trigger_subject and subject:
-        if calculate_string_distance(conversation.trigger_subject, subject) > 0.7:
+        score = calculate_string_distance(conversation.trigger_subject, subject)
+        averaged_score += score
+        scores.append(score)
+        if score > 0.7:
             matches = True
 
     if conversation.trigger_noun and noun:
-        if calculate_string_distance(conversation.trigger_noun, noun) > 0.7:
+        score = calculate_string_distance(conversation.trigger_noun, noun)
+        averaged_score += score
+        scores.append(score)
+        if score > 0.7:
             matches = True
-
-    return matches
+    if scores:
+        averaged_score = averaged_score/len(scores)
+    return matches, averaged_score
 
 
 #
@@ -213,7 +229,7 @@ def parse_any_date(sentence, use_mdy=False):
     written_month_regex = re.compile("\s{0,1}(january|february|march|april|may|june|july|august|september|october|november|december)(\s{1})(\d{1,2})+")
     found = written_month_regex.search(sentence.lower())
     # now = datetime.datetime.now().date()
-    # https://stackoverflow.com/questions/3418050/month-name-to-month-number-and-vice-versa-in-python
+    # for future reference https://stackoverflow.com/questions/3418050/month-name-to-month-number-and-vice-versa-in-python
     # https://en.wikipedia.org/wiki/Calendar_date
     if found is not None:
         return datetime.datetime.strptime(strip_punc(found.group(0),True), "%Y%m%d").date()

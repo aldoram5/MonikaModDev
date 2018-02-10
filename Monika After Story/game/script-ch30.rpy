@@ -642,6 +642,7 @@ label ch30_loop:
 
     jump ch30_loop
 
+
 # adding this label so people get redirected to main
 # this probably occurs when people install the mod right after deleting
 # monika, so we could probably throw in something here

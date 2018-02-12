@@ -33,6 +33,7 @@ The tool let's you decide many things:
   - The expression she is going to have, these match the already defined cheatsheet
   - Ask for player input which can be either a renpy menu that will let you decide to which step the conversation can go depending on what the player choose, the other input is the text based. 
   - The tool also let's you define an initial or final action to excecute in that step, right now the actions require feedback to add more types and make them more useful for integrations. 
+  - To use those conversations be sure to move the downloaded ".json" file to the folder for it's category: the folders are in: Monika After Story\game\python-packages\monika_chat\ the folders name indicates it's category, be careful to not rename those folders or Monika won't be able to find those conversations.
 
 The tool itself has a help button that can explain more in detail some of its functions.
 

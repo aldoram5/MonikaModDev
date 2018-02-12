@@ -19,7 +19,7 @@ The current tool is web based, meaning that it requires no installation and that
 
 
 # How does those things work
----
+
 ## Player input parsing 
 The system first filters out inputs that don't make sense like "asdadas" and similar things; if it detects something like that then it returns a predefined answer(this can be changed to selecting randomly from a pool of conversations generated with the tool, I need your opinions on this).
 If the input passes that filter then it gets classified in one of these categories: Current state question(how are you?), Greeting(hi! and others), Wh question(what, where, etc. questions), Yes no questions, opinions about Monika and Statements. The greeting and current state questions both have predefined answers because Monika already greets you when opening the mod and also you're given the good morning and good evening options in the talk menu, for current state is mostly because there aren't any sort of rules about how determine those so the system can't really be useful to offer many options for it, the default answer can be changed with the feedback of devs and the writting team. The other types get their answer selected depending on what the user is talking about, this is determined by using an algorithm to match with the conversations created with the tool.

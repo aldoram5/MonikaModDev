@@ -29,9 +29,9 @@ If the input passes that filter then it gets classified in one of these categori
 The conversations have their own way to be selected as correct answer to a conversation request by allowing to fill up the term to be matched accordingly like the statement subject, the verb, the adjective or the person or object the statement is refering to.
 All the conversations are just a collection of steps, to be followed according to the order we determine in the tool. 
 The tool let's you decide many things: 
-  - the text monika will say, here the option is given to use some special tokens that will get replaced at runtime by values stored like the player name replacing the $PLAYER token
-  - the expression she is going to have, these match the already defined cheatsheet
-  - ask for player input which can be either a renpy menu that will let you decide to which step the conversation can go depending on what the player choose, the other input is the text based. 
+  - The text monika will say, here the option is given to use some special tokens that will get replaced at runtime by values stored like the player name replacing the $PLAYER token
+  - The expression she is going to have, these match the already defined cheatsheet
+  - Ask for player input which can be either a renpy menu that will let you decide to which step the conversation can go depending on what the player choose, the other input is the text based. 
   - The tool also let's you define an initial or final action to excecute in that step, right now the actions require feedback to add more types and make them more useful for integrations. 
 
 The tool itself has a help button that can explain more in detail some of its functions.
@@ -41,6 +41,7 @@ The tool itself has a help button that can explain more in detail some of its fu
   - Read any input date and allow the conversation retrieve it as needed to either store it or check it against another date. I already have half of the function written, will get back to it soon 
   - The predefined answers in greetings, nonsense and current state queries must be either specified by the writting team, dropped entirely or changed so they can be loaded as well
   - There's also a predefined answer if she can't find a suitable response this one also must be defined by the writters
+  - The token system needs more Tokens to work with $DATE, $TODAY, $TOMORROW tokens are kinda planned but still feedback would be very welcome here.
   - The actions system requires more actions to be really useful, opinions on what types of actions could be helpful would be very appreciated
   - There's a memory module that right now only works to store info about the player input sentence in the temporal memory, however the permanent memory isn't permanent because I want to know if the values gotten from the chat module should be stored in the persistent file or in another file
   - In that memory module there's also some variables that are named after human emotions, the idea was that conversations could change her emotions and also her conversations could vary depending on her emotions as well, however this seemed like an overkill and I never really figured out how to add something with this, if anyone has more imagination for this suggestions are welcome, if not the emotion part can be dropped.

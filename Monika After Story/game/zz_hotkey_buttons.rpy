@@ -102,6 +102,7 @@ screen hkb_overlay():
 
         if allow_dialogue and store.hkb_button.enabled:
             textbutton _("Talk") action Jump("prompt_menu")
+
         else:
             textbutton _("Talk"):
                 action NullAction()

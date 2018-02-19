@@ -116,6 +116,17 @@ accepted_chars = 'abcdefghijklmnopqrstuvwxyz '
 pos = dict([(char, idx) for idx, char in enumerate(accepted_chars)])
 
 
+def unique_elements(array):
+    unique_ordered = []
+    unique = set()
+    for element in array:
+        if element in unique:
+            continue
+        unique.add(element)
+        unique_ordered.append(element)
+    return unique_ordered
+
+
 def contractions_replace(match):
     return contractions_dict[match.group(0)]
 

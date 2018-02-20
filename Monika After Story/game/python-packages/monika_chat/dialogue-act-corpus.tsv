@@ -1,0 +1,40 @@
+class	sentence
+greeting	hi!
+greeting	hello!
+greeting	hiya!
+greeting	howdy
+greeting	Hi there
+greeting	hello there
+greeting	greetings my love
+greeting	good day
+greeting	good afternoon
+greeting	nice to talk to you
+greeting	good morning
+greeting	good evening
+greeting	hey!
+greeting	It's nice to see you again
+greeting	It's great to talk with you
+greeting	hello Monika
+greeting	hello dear
+greeting	it's been a while
+greeting	Ciao Monika!
+greeting	Iterum obvenimus!
+greeting	Hola Monika!
+greeting	Hi again!
+state-q	how are you?
+state-q	how are you doing?
+state-q what's up
+state-q how is it going?
+state-q	how is life?
+state-q	how have you been?
+state-q how is your day going?
+state-q how ya doing?
+state-q	how is everything?
+state-q how's life been treating you?
+state-q	What’s new?
+state-q	how are things?
+state-q	what's going on?
+state-q	how is your day?
+state-q	how do you do?
+
+

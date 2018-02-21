@@ -36,5 +36,186 @@ state-q	how are things?
 state-q	what's going on?
 state-q	how is your day?
 state-q	how do you do?
-
-
+state-q	how are things going?
+agreement	yes!
+agreement	Yeah you could say that
+agreement	indeed
+agreement	I agree with you
+agreement	Definitely
+agreement	Yeah you're right
+agreement	yes of course
+agreement	of course!
+agreement	can't agree with you more
+agreement	I think the same 
+agreement	Yes you are right
+agreement	you cold say it like that
+agreement	I totally agree
+agreement	Yes, you are
+agreement	Yes I am
+agreement	Yes I do
+agreement	of course I do
+agreement	obviously I do
+agreement	you bet!
+agreement	Yeah that's it
+agreement	yes she is
+agreement	definitely yes
+agreement	absolutely correct
+agreement	you're right
+agreement	kinda yes
+agreement	Yeah kind of
+agreement	Yeah sure go on ahead
+agreement	yes you can continue
+agreement	Yeah, let's do this
+agreement	Yeah, go on ahead
+agreement	keep it up
+agreement	Yeah I think you're right
+agreement	yes it is
+agreement	Yes I like it a lot
+agreement	sure I do
+agreement	Yeah, sure
+agreement	Yeah
+agreement	please continue
+disagreement	No I don't
+disagreement	I dislike it
+disagreement	I don't like it
+disagreement	Not really
+disagreement	count me out
+disagreement	I don't want to
+disagreement	I won't do it
+disagreement	I will not
+disagreement	I'll never do such thing
+disagreement	I don't want it
+disagreement	No you don't
+disagreement	Definitely not happening
+disagreement	I'll never
+disagreement	No I didn't
+disagreement	That won't do
+disagreement	nope that doesn't work
+disagreement	not happening
+disagreement	not in this life
+disagreement	I would never do that
+disagreement	don't do it
+disagreement	please don't
+disagreement	No you're not 
+disagreement	No you haven't
+disagreement	No it wasn't
+about-m	I love you Monika
+about-m	You're awesome
+about-m	I think you're the best
+about-m	I think you're cute
+about-m	You definitely look good
+about-m	I can't live without you Monika
+about-m	You're really special Monika
+about-m	I think you're pretty smart
+about-m	I like you
+about-m	You're pretty
+about-m	You could improve that
+about-m	You're great Monika
+about-m	You're the most
+about-m	You look adorable Monika
+about-m	You're so cute
+about-m	You do look good
+change-subject	can we talk about something else
+change-subject	don't want to talk about it
+change-subject	let's not talk about that
+change-subject	can we not discuss that
+change-subject	let's not think about it
+change-subject	change the subject please
+change-subject	I don't feel confortable with that
+change-subject	let's talk about something else
+change-subject	please, let's talk about other things
+change-subject	I don't want to speak about it
+change-subject	say something different
+change-subject	I'm no interested in that topic
+change-subject	let's pretend we didn't talk about that
+change-subject	I want to discuss something else
+change-subject	let's change the topic
+change-subject	not interested in that topic
+change-subject	that doesn't concern me
+change-subject	change the subject
+change-subject	change the topic
+change-subject	knock it off please
+change-subject	let's try not to talk about that
+bye	good bye
+bye	good night
+bye	let's talk tomorrow
+bye	gotta go bye
+bye	I have to log off
+bye	I'm truly sorry but I have to go
+bye	I don't want to but I have to go my love
+bye	I'm going to go
+bye	see ya
+bye	see you later
+bye	have a pleasant night
+bye	wish you a good sleep
+bye	sorry I have to go
+bye	sorry but I have to leave your side
+bye	I have to go
+bye	can't keep talking to you now
+bye	I need to go
+thanking	thanks
+thanking	thank you so much
+thanking	thanks a bunch
+thanking	I can't thank you enough
+thanking	I appreciate your help
+thanking	Thank you
+thanking	Thanks a lot
+thanking	I'm so grateful
+thanking	You'll always have my gratitude
+thanking	Thank you so much
+thanking	thanks!
+thanking	I owe you one
+thanking	I owe you
+thanking	That's very kind thank you
+thanking	That's very nice thanks
+thanking	can’t thank you enough needed that
+thanking	what would I do without you
+thanking	Many thanks for that
+thanking	I’m so thankful for
+thanking	I’m so grateful for it
+thanking	I truly appreciate
+thanking	Thank you for taking the trouble to
+thanking	I’m eternally grateful for that
+thanking	Thanks It means a lot to me
+thanking	Words cannot describe how grateful we are for
+thanking	Please accept my deepest thanks for
+thanking	I want you to know how much I value
+thanking	Thank you for your assistance with
+thanking	Your support is greatly appreciated
+thanking	you have my gratitude
+thanking	thanks for your kind words
+neither	I'm a more in between
+neither	Not really sure I'm a bit of both
+neither	can't say yes or no
+neither	can't agree or disagree
+neither	I'm not sure I can be both
+neither	I don't have a preference there
+apology	I'm sorry
+apology	I'm terribly sorry
+apology	please forgive me
+apology	I ask for your forgiveness
+apology	will you ever be able to forgive me?
+apology	do you forgive me?
+apology	can you forgive me?
+disbelief	really?
+disbelief	are you serious?
+disbelief	you can't be serious
+disbelief	seroiusly?
+disbelief	I can't believe it
+disbelief	unbelievable
+disbelief	are you kidding me?
+disbelief	that can't be true
+statement	I'm hungry
+statement	I'm depressed
+statement	I'm happy
+statement	I don't think that's good
+statement	I like when something
+statement	I work from
+statement	I have a job
+statement	I go to school
+statement	She's better than
+statement	it is worst than you think
+statement	I'm going to go to sleep early
+statement	I guess I never told you
+statement	I'm going to 
+statement	I think that

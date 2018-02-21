@@ -45,6 +45,7 @@ contractions_dict = {
   "I'd've": "I would have",
   "I'll": "I will",
   "I'm": "I am",
+  "i'm": "i am",
   "I've": "I have",
   "isn't": "is not",
   "it'd": "it had",

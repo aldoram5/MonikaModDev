@@ -130,7 +130,6 @@ class MonikaAi:
             threshold = self.gib_detector['thresh']
             return utils.avg_transition_prob(clean.lower(), model_mat) <= threshold
 
-
     def start_chat(self, sentence):
         """
         The start_chat method classifies the given sentence in one of the known

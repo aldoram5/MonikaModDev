@@ -32,10 +32,10 @@ class AveragedPerceptron(object):
         self.weights = {}
         self.classes = set()
         # The accumulated values, for the averaging. These will be keyed by
-        # feature/clas tuples
+        # feature/class tuples
         self._totals = defaultdict(int)
         # The last time the feature was changed, for the averaging. Also
-        # keyed by feature/clas tuples
+        # keyed by feature/class tuples
         # (tstamps is short for timestamps)
         self._tstamps = defaultdict(int)
         # Number of instances seen

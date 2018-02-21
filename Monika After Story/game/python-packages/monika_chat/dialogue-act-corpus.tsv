@@ -23,15 +23,15 @@ greeting	Hola Monika!
 greeting	Hi again!
 state-q	how are you?
 state-q	how are you doing?
-state-q what's up
-state-q how is it going?
+state-q	what's up
+state-q	how is it going?
 state-q	how is life?
 state-q	how have you been?
-state-q how is your day going?
-state-q how ya doing?
+state-q	how is your day going?
+state-q	how ya doing?
 state-q	how is everything?
-state-q how's life been treating you?
-state-q	What’s new?
+state-q	how's life been treating you?
+state-q	What's new?
 state-q	how are things?
 state-q	what's going on?
 state-q	how is your day?
@@ -50,7 +50,7 @@ agreement	I think the same
 agreement	Yes you are right
 agreement	you cold say it like that
 agreement	I totally agree
-agreement	Yes, you are
+agreement	Yes you are
 agreement	Yes I am
 agreement	Yes I do
 agreement	of course I do
@@ -65,8 +65,8 @@ agreement	kinda yes
 agreement	Yeah kind of
 agreement	Yeah sure go on ahead
 agreement	yes you can continue
-agreement	Yeah, let's do this
-agreement	Yeah, go on ahead
+agreement	Yeah let's do this
+agreement	Yeah go on ahead
 agreement	keep it up
 agreement	Yeah I think you're right
 agreement	yes it is
@@ -121,7 +121,7 @@ change-subject	let's not talk about that
 change-subject	can we not discuss that
 change-subject	let's not think about it
 change-subject	change the subject please
-change-subject	I don't feel confortable with that
+change-subject	I don't feel comfortable with that
 change-subject	let's talk about something else
 change-subject	please, let's talk about other things
 change-subject	I don't want to speak about it
@@ -168,14 +168,14 @@ thanking	I owe you one
 thanking	I owe you
 thanking	That's very kind thank you
 thanking	That's very nice thanks
-thanking	can’t thank you enough needed that
+thanking	can't thank you enough needed that
 thanking	what would I do without you
 thanking	Many thanks for that
-thanking	I’m so thankful for
-thanking	I’m so grateful for it
+thanking	I'm so thankful for
+thanking	I'm so grateful for it
 thanking	I truly appreciate
 thanking	Thank you for taking the trouble to
-thanking	I’m eternally grateful for that
+thanking	I'm eternally grateful for that
 thanking	Thanks It means a lot to me
 thanking	Words cannot describe how grateful we are for
 thanking	Please accept my deepest thanks for

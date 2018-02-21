@@ -45,7 +45,7 @@ class Morphy:
     # https://wordnet.princeton.edu/man/morphy.7WN.html
     #
 
-    def morphy(self,word, pos_tag=None):
+    def morphy(self, word, pos_tag=None):
         """
         morphy function transforms word into it's base form for easier processing
         :param word: word to transform 
@@ -115,4 +115,4 @@ class Morphy:
                 base =  self.modals.get(word,None)
                 if base is not None:
                     return base
-
+        return word

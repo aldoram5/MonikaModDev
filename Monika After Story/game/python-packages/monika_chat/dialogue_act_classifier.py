@@ -3,22 +3,38 @@ import os
 import inspect
 import utils
 import time
-from monika_ai import MonikaAi
+import pickle
 from pos_tagger import PerceptronTagger
 from morphy import Morphy
+
+CLASSIFIER_PICKLE = 'dact_classifier.pickle'
 
 
 class DialogueActClassifier:
 
-    def __init__(self, base_dir=None):
+    def __init__(self, base_dir=None, load=False, pos_tagger=None):
         self.base_dir = base_dir
         if self.base_dir is None:
             self.base_dir = os.path.dirname(inspect.getfile(self.__class__))
         self.corpus_words = {}
         self.class_words = {}
-        self.ngrams = 2
-        self.pos_tagger = PerceptronTagger(base_dir=base_dir)
+        self.n_grams = 2
+        self.pos_tagger = PerceptronTagger(base_dir=base_dir) if pos_tagger is None else pos_tagger
         self.morphy = Morphy(base_dir=base_dir)
+        if load:
+            self.load()
+
+    def save(self):
+        with open(os.path.join(self.base_dir, CLASSIFIER_PICKLE), 'wb') as handle:
+            pickle.dump({'corpus': self.corpus_words, 'class': self.class_words, 'n-grams':self.n_grams}, handle,
+                        protocol=pickle.HIGHEST_PROTOCOL)
+
+    def load(self):
+        with open(os.path.join(self.base_dir, CLASSIFIER_PICKLE), 'rb') as handle:
+            data = pickle.load(handle)
+            self.class_words = data['class']
+            self.n_grams = data['n-grams']
+            self.corpus_words = data['corpus']
 
     def pre_process_sentence(self, sentence):
         """
@@ -53,7 +69,7 @@ class DialogueActClassifier:
         :param words: a list of the words to tokenize
         :return: the tokenized words
         """
-        return words if self.ngrams == 1 else [" ".join(words[i:i+self.ngrams]) for i in range(len(words)-self.ngrams+1)]
+        return words if self.n_grams == 1 else [" ".join(words[i:i + self.n_grams]) for i in range(len(words) - self.n_grams + 1)]
 
     def train(self, corpus):
         """
@@ -88,6 +104,7 @@ class DialogueActClassifier:
 
                     # add the word to our words in class list
                 self.class_words[data['class']].extend([element])
+        self.save()
 
     # return the class with highest score for sentence
     def classify(self, sentence):
@@ -99,17 +116,20 @@ class DialogueActClassifier:
         """
         high_class = "statement"
         high_score = 0
-        trustable = True
+        should_trust = True
         # loop through our classes
         for c in self.class_words.keys():
             # calculate score of sentence for each class
             score = self.calculate_class_score(sentence, c, show_details=True)
             # keep track of highest score
+            if score == high_score:
+                should_trust = False
             if score > high_score:
                 high_class = c
                 high_score = score
+                should_trust = True
 
-        return high_class, high_score, trustable
+        return high_class, high_score, should_trust
 
     # calculate a score for a given class taking into account word commonality
     def calculate_class_score(self,sentence, class_name, show_details=True):
@@ -142,11 +162,11 @@ def command_interface():
     continue_chat = True
 
     start = time.time()
-    monika = DialogueActClassifier()
-    end = time.time()
+    monika = DialogueActClassifier(load=True)
     print("training finished in:")
+    #monika.train("dialogue-act-corpus.tsv")
+    end = time.time()
     print(end - start)
-    monika.train("dialogue-act-corpus.tsv")
     #monika.train("dialogue-act-corpus-mini.tsv")
     try:
         s = raw_input('> ')

@@ -1,7 +1,7 @@
 class	sentence
-greeting	hi!
-greeting	hello!
-greeting	hiya!
+greeting	hi hi
+greeting	hello my
+greeting	hiya
 greeting	howdy
 greeting	Hi there
 greeting	hello there
@@ -69,9 +69,9 @@ agreement	yes you can continue
 agreement	Yeah let's do this
 agreement	Yeah go on ahead
 agreement	keep it up
-agreement	Yeah I think you're right
+agreement	Yeah you're right
 agreement	yes it is
-agreement	Yes I like it a lot
+agreement	Yes I
 agreement	sure I do
 agreement	Yeah sure
 agreement	Yeah
@@ -177,5 +177,5 @@ apology	I'm terribly sorry
 apology	please forgive me
 apology	I ask for your forgiveness
 apology	will you ever be able to forgive me?
-apology	do you forgive me?
-apology	can you forgive me?
+apology	you forgive me?
+apology	forgive me?

@@ -36,7 +36,6 @@ class DialogueActClassifier:
         :param corpus: name of the tsv file containing the classes and senteces to train on
         :return: nothing but once the training is done the classes and corpus_words are defined the model stores itself
         """
-        training_data = []
         with open(os.path.join(self.base_dir, corpus)) as tsvfile:
             reader = csv.DictReader(tsvfile, dialect='excel-tab')
             training_data = list(reader)
@@ -118,7 +117,8 @@ def command_interface():
     s = 'hello'
     continue_chat = True
     monika = DialogueActClassifier()
-    monika.train("dialogue-act-corpus.tsv")
+    #monika.train("dialogue-act-corpus.tsv")
+    monika.train("dialogue-act-corpus-mini.tsv")
     try:
         s = raw_input('> ')
     except EOFError:

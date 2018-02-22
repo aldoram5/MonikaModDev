@@ -1,0 +1,181 @@
+class	sentence
+greeting	hi!
+greeting	hello!
+greeting	hiya!
+greeting	howdy
+greeting	Hi there
+greeting	hello there
+greeting	greetings my
+greeting	good day
+greeting	good afternoon
+greeting	nice to talk to you
+greeting	good morning
+greeting	good evening
+greeting	hey!
+greeting	heya!
+greeting	nice to see you again
+greeting	great to talk with you
+greeting	hello
+greeting	hello dear
+greeting	it's been a while
+greeting	Ciao
+greeting	Iterum obvenimus!
+greeting	Hola
+greeting	Hi again!
+state-q	how are you?
+state-q	how are you doing?
+state-q	what's up
+state-q	how is it going?
+state-q	how is life?
+state-q	how have you been?
+state-q	how is your day going?
+state-q	how ya doing?
+state-q	how is everything?
+state-q	how's life been treating you?
+state-q	What's new?
+state-q	how are things?
+state-q	what's going on?
+state-q	how is your day?
+state-q	how do you do?
+state-q	how are things going?
+agreement	yes!
+agreement	Yeah you could say that
+agreement	indeed
+agreement	I agree with you
+agreement	Definitely
+agreement	Yeah you're right
+agreement	yes of course
+agreement	of course!
+agreement	can't agree with you more
+agreement	I think the same 
+agreement	Yes you are right
+agreement	you cold say it like that
+agreement	I totally agree
+agreement	Yes you are
+agreement	Yes I am
+agreement	Yes I do
+agreement	of course I do
+agreement	obviously I do
+agreement	you bet!
+agreement	Yeah that's it
+agreement	yes she is
+agreement	definitely yes
+agreement	absolutely correct
+agreement	you're right
+agreement	kinda yes
+agreement	Yeah kind of
+agreement	Yeah sure go on ahead
+agreement	yes you can continue
+agreement	Yeah let's do this
+agreement	Yeah go on ahead
+agreement	keep it up
+agreement	Yeah I think you're right
+agreement	yes it is
+agreement	Yes I like it a lot
+agreement	sure I do
+agreement	Yeah sure
+agreement	Yeah
+agreement	please continue
+disagreement	No I don't
+disagreement	I dislike it
+disagreement	I don't like it
+disagreement	Not really
+disagreement	count me out
+disagreement	I don't want to
+disagreement	I won't do it
+disagreement	I will not
+disagreement	I'll never do such thing
+disagreement	I don't want it
+disagreement	No you don't
+disagreement	Definitely not happening
+disagreement	I'll never
+disagreement	No I didn't
+disagreement	That won't do
+disagreement	nope that doesn't work
+disagreement	not happening
+disagreement	not in this life
+disagreement	I would never do that
+disagreement	don't do it
+disagreement	please don't
+disagreement	No you're not 
+disagreement	No you haven't
+disagreement	No it wasn't
+change-subject	can we talk about something else
+change-subject	don't want to talk about it
+change-subject	let's not talk about that
+change-subject	can we not discuss that
+change-subject	let's not think about it
+change-subject	change the subject please
+change-subject	I don't feel comfortable with that
+change-subject	let's talk about something else
+change-subject	please, let's talk about other things
+change-subject	I don't want to speak about it
+change-subject	say something different
+change-subject	I'm no interested in that topic
+change-subject	let's pretend we didn't talk about that
+change-subject	I want to discuss something else
+change-subject	let's change the topic
+change-subject	not interested in that topic
+change-subject	that doesn't concern me
+change-subject	change the subject
+change-subject	change the topic
+change-subject	knock it off please
+change-subject	let's try not to talk about that
+bye	good bye
+bye	good night
+bye	let's talk tomorrow
+bye	gotta go bye
+bye	I have to log off
+bye	I'm going I have to go
+bye	I have to go sayonara
+bye	I'm going to go Goodbye
+bye	see ya night
+bye	see you later
+bye	have a pleasant night
+bye	wish you a good Until
+bye	I have to go
+bye	but I have to leave your side
+bye	I have to go arrivederci
+bye	can't talk to you now
+bye	Talk to you later
+bye	See you soon
+bye	I must be going
+bye	I need to go adieu
+thanking	thanks
+thanking	thank you so much
+thanking	thanks a bunch
+thanking	I can't thank you enough
+thanking	I appreciate your help
+thanking	Thank you
+thanking	Thanks a lot
+thanking	I'm so grateful
+thanking	You'll always have my gratitude
+thanking	Thank you so much
+thanking	thanks!
+thanking	I owe you one
+thanking	I owe you
+thanking	That's very kind thank you
+thanking	That's very nice thanks
+thanking	can't thank you enough needed that
+thanking	what would I do without you
+thanking	Many thanks for that
+thanking	I'm so thankful for
+thanking	I'm so grateful for
+thanking	I truly appreciate
+thanking	Thank you for taking the trouble to
+thanking	I'm eternally grateful for that
+thanking	Thanks It means a lot to me
+thanking	grateful
+thanking	Please accept my deepest thanks for
+thanking	I want you to know how much I value
+thanking	Thank you for your assistance
+thanking	Your support is greatly appreciated
+thanking	you have my gratitude
+thanking	thanks for
+apology	I'm sorry
+apology	I'm terribly sorry
+apology	please forgive me
+apology	I ask for your forgiveness
+apology	will you ever be able to forgive me?
+apology	do you forgive me?
+apology	can you forgive me?

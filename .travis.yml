@@ -11,4 +11,4 @@ install:
   - mv renpy-6.99.12.4-sdk renpy
   - cd renpy
 # command to run error checks
-script: ./renpy.sh "../MonikaModDev/Monika\ After\ Story/" lint 
+script: ./renpy.sh "../MonikaModDev/Monika After Story/" lint 

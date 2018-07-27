@@ -59,8 +59,17 @@ init python:
     import datetime
     import store.mas_affection as affection
 
+    log = renpy.renpy.log.open("aff")
+
     # Functions to freeze exp progression for story events, use wisely.
     def mas_FreezeGoodAffExp():
+
+        if config.developer:
+            is_log_open = log.open()
+            log.raw_write = True
+            if is_log_open:
+                log.write("Unfreeze good affection exp\n")
+
         persistent._mas_affection_goodexp_freeze = True
 
     def mas_FreezeBadAffExp():
@@ -74,6 +83,13 @@ init python:
         persistent._mas_affection_badexp_freeze = False
 
     def mas_UnfreezeGoodAffExp():
+
+        if config.developer:
+            is_log_open = log.open()
+            log.raw_write = True
+            if is_log_open:
+                log.write("Unfreeze good affection exp\n")
+
         persistent._mas_affection_goodexp_freeze = False
 
     def mas_UnfreezeBothExp():
@@ -176,6 +192,13 @@ init python:
                 if persistent._mas_affection["today_exp"] >= 7:
                     mas_FreezeGoodAffExp()
 
+            if config.developer:
+                is_log_open = log.open()
+                log.raw_write = True
+                if is_log_open:
+                    log.write("Gained {0} affection points\n".format(amount * modifier))
+                    log.write("Current affection points: {0}\n".format(persistent._mas_affection["affection"]))
+
             # Updates the experience levels if necessary.
             mas_updateAffectionExp()
 
@@ -193,6 +216,12 @@ init python:
             if persistent._mas_affection["affection"] < -1000000:
                 persistet.mas_affection["affection"] = -1000000
 
+            if config.developer:
+                is_log_open = log.open()
+                log.raw_write = True
+                if is_log_open:
+                    log.write("Lost {0} affection points\n".format(amount * modifier))
+                    log.write("Current affection points: {0}\n".format(persistent._mas_affection["affection"]))
             # Updates the experience levels if necessary.
             mas_updateAffectionExp()
 
@@ -247,7 +276,7 @@ init python:
             time_difference = persistent._mas_absence_time
             # we skip this for devs since we sometimes use older persistents and only apply after 1 week
             if (
-                    not config.developer 
+                    not config.developer
                     and time_difference >= datetime.timedelta(weeks = 1)
                 ):
                 new_aff = _mas_getAffection() - (0.5 * time_difference.days)
@@ -259,7 +288,7 @@ init python:
                     else:
                         # otherwise, you cant lose past a certain amount
                         mas_setAffection(affection.AFF_TIME_CAP)
-                        
+
                 else:
                     mas_setAffection(new_aff)
 

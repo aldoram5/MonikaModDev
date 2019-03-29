@@ -180,7 +180,7 @@ init -20 python in mas_weather:
             )
 
             # lock rain start/rain/islands
-            store.mas_lockEVL("mas_monika_islands", "EVE") # TODO: island rain art
+            # store.mas_lockEVL("mas_monika_islands", "EVE") # TODO: island rain art
 
 
     def _weather_rain_exit(_new):
@@ -200,13 +200,13 @@ init -20 python in mas_weather:
 #        store.mas_unlockEVL("monika_rain", "EVE")
 
             # TODO: island rain art
-            islands_ev = store.mas_getEV("mas_monika_islands")
-            if (
-                    islands_ev is not None
-                    and islands_ev.shown_count > 0
-                    and islands_ev.checkAffection(store.mas_curr_affection)
-                ):
-                store.mas_unlockEVL("mas_monika_islands", "EVE")
+            # islands_ev = store.mas_getEV("mas_monika_islands")
+            # if (
+            #         islands_ev is not None
+            #         and islands_ev.shown_count > 0
+            #         and islands_ev.checkAffection(store.mas_curr_affection)
+            #     ):
+            #     store.mas_unlockEVL("mas_monika_islands", "EVE")
 
 #        else:
 #            store.mas_unlockEVL("greeting_ourreality", "GRE")
@@ -222,7 +222,7 @@ init -20 python in mas_weather:
         store.mas_is_snowing = True
 
         # lock islands
-        store.mas_lockEVL("mas_monika_islands", "EVE")
+        # store.mas_lockEVL("mas_monika_islands", "EVE")
 
         # TODO: lock islands greeting as well
 
@@ -235,13 +235,13 @@ init -20 python in mas_weather:
         store.mas_is_snowing = False
 
         # unlock islands
-        islands_ev = store.mas_getEV("mas_monika_islands")
-        if (
-                islands_ev is not None
-                and islands_ev.shown_count > 0
-                and islands_ev.checkAffection(store.mas_curr_affection)
-            ):
-            store.mas_unlockEVL("mas_monika_islands", "EVE")
+        # islands_ev = store.mas_getEV("mas_monika_islands")
+        # if (
+        #         islands_ev is not None
+        #         and islands_ev.shown_count > 0
+        #         and islands_ev.checkAffection(store.mas_curr_affection)
+        #     ):
+        #     store.mas_unlockEVL("mas_monika_islands", "EVE")
 
         # TODO: unlock islands greeting as well
 
@@ -517,6 +517,8 @@ init -1 python:
         # islands bg day and night
         isbg_wf_day="mod_assets/location/special/rain_with_frame.png",
         isbg_wof_day="mod_assets/location/special/rain_without_frame.png",
+        isbg_wf_night="mod_assets/location/special/night_rain_with_frame.png",
+        isbg_wof_night="mod_assets/location/special/night_rain_without_frame.png",
 
         entry_pp=store.mas_weather._weather_rain_entry,
         exit_pp=store.mas_weather._weather_rain_exit,
@@ -535,6 +537,12 @@ init -1 python:
         # sp night
         "snow_mask_night_left",
         "snow_mask_night_right",
+
+        # islands bg day and night
+        isbg_wf_day="mod_assets/location/special/snow_with_frame.png",
+        isbg_wof_day="mod_assets/location/special/snow_without_frame.png",
+        isbg_wf_night="mod_assets/location/special/night_snow_with_frame.png",
+        isbg_wof_night="mod_assets/location/special/night_snow_without_frame.png",
 
         entry_pp=store.mas_weather._weather_snow_entry,
         exit_pp=store.mas_weather._weather_snow_exit
